@@ -29,11 +29,11 @@ if (env === 'production') {
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   session({
-    store: new MongoStore({mongooseConnection: mongoose.connection}),
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
     secret,
     cookie: {
       maxAge: 1000 * 60 * 60,
@@ -42,14 +42,16 @@ app.use(
     },
     resave: false, // forces the session to be saved back to the store
     saveUninitialized: false, // dont save unmodified
-  })
+  }),
 );
 
 // run app and database
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Listening: http://localhost:${port}`);
 
   mongoose.connect(dbUri, () => {
+    // eslint-disable-next-line no-console
     console.log('Database connected.');
   });
 });
